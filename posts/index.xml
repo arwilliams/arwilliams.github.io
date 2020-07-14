@@ -18,7 +18,8 @@
       <pubDate>Sun, 12 Jul 2020 19:13:50 -0700</pubDate>
       
       <guid>http://example.org/posts/hello-world/</guid>
-      <description></description>
+      <description>This is the content of this post. Here is some displayed math: \begin{equation} X^\mathfrak{b} = \mathrm{Ad}_{\mathfrak{b} \leftarrow \mathfrak{a}} X^a. \end{equation}
+Here is some inline math: Transformations in a group \(G\) can be expressed as changes of frame \(\mathfrak b \leftarrow a\).</description>
     </item>
     
     
