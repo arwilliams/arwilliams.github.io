@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" href="https://arwilliams.github.io/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    <title>Derivation of exp and log for SO(3)</title>
+</head>
+<body><header id="banner">
+    <h2><a href="https://arwilliams.github.io/">Adam Williams</a></h2>
+    <nav>
+        <ul>
+            
+            <li>
+                <a href="/" title="">Home</a>
+            </li>
+            
+            <li>
+                <a href="/posts/" title="">Posts</a>
+            </li>
+            
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Derivation of exp and log for SO(3)</h1><time>August 23, 2020</time></header><p>\(
+\def\SO{\mathrm{SO}}
+\def\so{\mathfrak{so}}
+\)</p>
+<h2 id="overview">Overview</h2>
+<p>This post details how to compute various quantities related to the
+Lie group \(\SO(3)\) and its Lie algebra \(\so(3)\), for practical engineering purposes.
+Recall that \(\SO(3)\) is the set of orthogonal, orientation-preserving linear transformations
+on \(\mathbb R^3\) and can be realized as a matrix group:
+$$
+\SO(3) = \{ R \in \mathrm{GL}(3) \mid RR^\top = I, \; \det(R) &gt; 0 \}.
+$$</p>
+<h2 id="characterizing-the-lie-algebra-so3">Characterizing the Lie Algebra \(\so(3)\)</h2>
+<h3 id="skew-symmetric-matrix-representation">Skew-Symmetric Matrix Representation</h3>
+<p>Differentiating a curve \(R\) in \(\SO(3)\) with \(R(0) = I\) yields
+$$
+R&rsquo;(0)^\top + R&rsquo;(0) = 0,
+$$
+meaning that the Lie algebra \(\so(3)\) can be realized as the vector space of
+\(3 \times 3\) skew-symmetric matrices, with Lie bracket given (as with all matrix groups)
+by the commutator: \([X, Y] = XY - YX\). Hence we can choose the basis \(\mathcal G = (G_1, G_2, G_3)\)
+\begin{align}
+G_1 &amp;= \begin{pmatrix} 0 &amp; 0 &amp; 0 \\<br>
+0 &amp; 0 &amp; -1 \\<br>
+0 &amp; 1 &amp; 0 \\<br>
+\end{pmatrix} \\<br>
+G_2 &amp;= \begin{pmatrix} 0 &amp; 0 &amp; 1 \\<br>
+0 &amp; 0 &amp; 0 \\<br>
+-1 &amp; 0 &amp; 0 \\<br>
+\end{pmatrix} \\<br>
+G_3 &amp;= \begin{pmatrix} 0 &amp; -1 &amp; 0 \\<br>
+1 &amp; 0 &amp; 0 \\<br>
+0 &amp; 0 &amp; 0 \\<br>
+\end{pmatrix} \\<br>
+\end{align}
+as a choice of exponential coordinates (or infinitesimal generators) on \(\SO(3)\),
+and do computations with respect to this basis.</p>
+<h3 id="axis-angle-vector-representation">Axis-Angle Vector Representation</h3>
+<p>An alternative realization of \(\so(3)\) is the vector space \(\mathbb R^3\) with
+Lie bracket given by the cross product:
+$$
+[\omega, \eta] = \omega \times \eta.
+$$
+The isomorphism is given by the mapping
+\begin{align}
+\mathbb R^3 &amp;\cong \so(3) \\<br>
+\omega &amp;\mapsto \omega_\times
+\end{align}
+taking \(\omega \in \mathbb R^3\) to its skew matrix
+$$
+\omega_\times = \begin{pmatrix} 0 &amp; -\omega_z &amp; \omega_y \\<br>
+\omega_z &amp; 0 &amp; -\omega_x \\<br>
+-\omega_y &amp; \omega_x &amp; 0 \\<br>
+\end{pmatrix} = \omega_x G_1 + \omega_y G_2 + \omega_z G_3.
+$$</p>
+<p>The <strong>axis-angle</strong> vector \(\omega\) has the following geometric interpretation: Let
+\begin{align}
+\hat \omega &amp;= \omega / | \omega | \\<br>
+\theta &amp;= | \omega |.
+\end{align}
+Then \(\exp(\omega)\) is a right-handed rotation of angle \(\theta\) around the axis
+\(\hat \omega \in \mathbb R^3\). Hence the infinitesimal generators \(G_1\), \(G_2\), and \(G_3\)
+that we have chosen are perturbations around the \(x\), \(y\), and \(z\) axis, respectively.
+And the one-parameter subgroups \(\theta \mapsto \exp(\theta \hat \omega)\) compound
+infinitesimal rotations around a given axis for an angle of \(\theta\).</p>
+<h2 id="exponential-and-logarithm">Exponential and Logarithm</h2>
+<h3 id="exponential">Exponential</h3>
+<p>The goal of this section is to compute the exponential map, taking an axis-angle vector
+to its rotation matrix in \(\SO(3)\), using the matrix exponential:
+$$
+\exp(\omega) = \sum_{k=0}^\infty \frac{\omega_{\times}^k}{k!}.
+$$
+Let \(\hat \omega = \omega / | \omega|\), and \(\theta = |\omega|\).
+Using properties of the cross product, we
+have \(\hat \omega_{\times}^3 = - \hat \omega_{\times}\), and so higher powers of \(\hat \omega_\times\)
+in the power series collapse:
+\begin{align}
+\hat \omega_\times^3 &amp;= - \hat \omega_\times \\<br>
+\hat \omega_\times^4 &amp;= - \hat \omega_\times^2 \\<br>
+\hat \omega_\times^5 &amp;= \hat \omega_\times. \\<br>
+\end{align}
+Hence we can group all of the power series terms into a \(\hat \omega_\times\) term and
+a \(\hat \omega_\times^2\) term:
+\begin{align}
+\exp(\omega) &amp;= I + \left( 1 - \frac{\theta^3}{3!} + \frac{\theta^5}{5!} + \cdots \right)
+\hat \omega_\times +
+\left( \frac{\theta^2}{2!} - \frac{\theta^4}{4!} + \frac{\theta^6}{6!} \right)
+\hat \omega_\times^2 \\<br>
+&amp; = I + \left(\frac{\sin \theta}{\theta}\right) \omega_\times +
+\left(\frac{1 - \cos\theta}{\theta^2}
+\right) \omega_\times^2.
+\end{align}
+Hence we have a practical formula for the exponential of a skew matrix. Note that, in practice,
+the trigonometric coefficients should be computed using a Taylor series approximation
+for sufficiently small \(\theta\):
+\begin{align}
+\frac{\sin(\theta)}{\theta} &amp;=
+1 - \frac{\theta^2}{6} + \frac{\theta^4}{120} + O\left( \theta^6 \right) \\<br>
+\frac{1 - \cos\theta}{\theta^2} &amp;=
+\frac 1 2  - \frac{\theta^2}{24} + \frac{\theta^4}{720} + O\left( \theta^6 \right) \\<br>
+\end{align}</p>
+<h3 id="logarithm">Logarithm</h3>
+<p>In order to derive a formula for the (partial) inverse of \(\exp\), we must</p>
+<ul>
+<li>Determine the <strong>normal neighborhood</strong> \(U \ni 0 \in \mathfrak{so}(3)\) on which \(\exp\) is invertible.</li>
+<li>Compute a formula for \(\log : \exp(U) \cong U\).</li>
+</ul>
+<p>First, to compute the angle of rotation \(\theta = | \omega |\). If we take the trace of \(R = \exp(\omega)\),
+then applying linearity and the fact that \(\omega_\times\) is traceless, we obtain
+\begin{align}
+\operatorname{tr} R &amp;= \operatorname{tr} I + 0 + \left( \frac{1 - \cos \theta}{\theta^2} \right) \operatorname{tr} \omega_\times^2 \\<br>
+&amp; = 3 + \left( \frac{1 - \cos \theta}{\theta^2} \right) \left( - 2 | \omega |^2 \right)
+\end{align}
+and thus
+$$
+\cos \theta = \frac{\operatorname{tr} R - 1}{2}.
+$$
+Restricting \(\theta \in [0, \pi]\) then gives the unique solution
+$$
+\theta = \arccos \frac{\operatorname{tr} R - 1}{2}.
+$$</p>
+<p>Now to compute the axis of rotation.
+we first recall the fact that the set of \(n \times n\) matrices \(M_n(\mathbb R)\) is the direct (vector space)
+sum of the set of skew-symmetric matrices and the set of symmetric matrices:
+$$
+M_n(\mathbb R) = \operatorname{Skew}_n(\mathbb R) \oplus \operatorname{Sym}_n(\mathbb R).
+$$
+That is, any square matrix can be written <em>uniquely</em> as a skew-symmetric matrix and a symmetric matrix. In fact,
+this decomposition has a simple formula:
+$$
+A = \frac{A - A^\top}{2} + \frac{A + A^\top}{2}.
+$$</p>
+<p>Now, let \(R = \exp(\omega)\). Observe that the formula for \(\exp\) from the previous
+section is actually the skew-symmetric/symmetric decomposition of \(R\):
+\begin{align}
+R = \underbrace{\left( \left( \frac{\sin \theta}{\theta}\right) \omega_\times \right)}_{\frac{R - R^\top}{2}} +
+\underbrace{\left( I +\left( \frac{1 - \cos \theta}{\theta^2} \right) \omega_\times^2 \right)}_{\frac{R + R^\top}{2}}.
+\end{align}
+Hence, if \(\sin \theta \ne 0\), we can use the skew-symmetric part to solve for \(\omega_\times\):
+$$
+\omega_\times = \left( \frac{\theta}{2 \sin \theta} \right) \left( R - R^\top \right).
+$$
+And so we simply choose \(\omega\) such that
+$$
+\omega_\times = R - R^\top.
+$$
+Note that, when $\theta$ is small, it is best to compute the coefficient using a Taylor series:
+$$
+\frac{\theta}{2 \sin \theta} = \frac 1 2 + \frac{\theta^2}{12} + \frac{7 \theta^4}{720} + O(\theta^6).
+$$</p>
+<p>Now, this method breaks down when \(\theta &gt; 0\) and \(\sin(\theta) = \pi\) (note that if \(\theta = 0\) then we
+choose \(\omega = 0\), trivially). So, we have a unique \(\log\) for all \(\omega\) within the interior of a ball of radius
+\(\pi\). At the boundary \(\theta = \pi\), however, \(R\) is purely symmetric (hence \(R = R^\top = R^{-1}\)) and so the skew matrix
+provides no information. Note that this is geometrically intuitive: A rotation of angle \(\pi\) is its own inverse. Hence
+we must use the symmetric part to solve for \(\pm \omega\), and make an arbitrary choice of sign: setting \(\theta = \pi\),
+we have
+$$
+R = I + 2 \hat \omega_\times^2.
+$$
+Note that \(\hat \omega_\times^2 = \hat \omega \hat \omega^\top - I\), and hence
+$$
+\hat \omega \hat \omega^\top = \frac 1 2 (R + I).
+$$
+we thus have
+\begin{align}
+\hat \omega_x^2 &amp; = \frac 1 2 (r_{11} + 1) \\<br>
+\hat \omega_y^2 &amp; = \frac 1 2 (r_{22} + 1) \\<br>
+\hat \omega_z^2 &amp; = \frac 1 2 (r_{33} + 1), \\<br>
+\end{align}
+and the relative signs of the entries of \(\hat \omega\) can be determined by the off-diagonal components. This
+determines \(\omega\) up to a factor of \(\pm 1\).</p>
+<h2 id="adjoint-representation">Adjoint Representation</h2>
+<h3 id="adjoint-representation-of-the-group">Adjoint Representation of the Group</h3>
+<p>The adjoint representation of a group element \(R \in \SO(3)\) is the linear mapping
+$$
+\omega_\times \mapsto R \omega_\times R^\top.
+$$
+from \(\so(3) \to \so(3)\). We would like to write this linear transformation with respect to
+the basis \(\mathcal G\), i.e. express it as a left multiplication by a \(3 \times 3\) matrix
+$$
+\omega \mapsto \operatorname{Ad}_R \omega.
+$$
+This is straightforward, using the fact that the cross product is preserved by rotation:
+\(Rx \times Ry = R ( x \times y)\). Let \(y \in \mathbb R^3\) be arbitrary, and observe
+\begin{align}
+\left[ \operatorname{Ad}_R \omega \right]_\times Ry &amp;= \left[ R \omega_\times R^\top \right] Ry \\<br>
+&amp;= R ( \omega \times y) \\<br>
+&amp;= R\omega \times Ry \\<br>
+&amp;= \left[ R \omega \right]_\times Ry.
+\end{align}
+Hence \(\left[ \operatorname{Ad}_R \omega \right]_\times = \left[ R \omega \right]_\times\), meaning
+$$
+\operatorname{Ad}_R = R.
+$$
+We say that \(\SO(3)\) is <strong>self-adjoint</strong>.</p>
+<h3 id="adjoint-representation-of-the-algebra">Adjoint Representation of the Algebra</h3>
+<p>The adjoint representation of a Lie algebra element \(\omega \in \so(3)\) is the linear mapping
+$$
+\eta_\times \mapsto \omega_\times \eta_\times - \eta_\times \omega_\times
+$$
+from \(\so(3) \to \so(3)\). We can derive the matrix for this mapping with respect to
+\(\mathcal G\) by applying the <em>Jacobi identity</em> for the cross product: For any
+\(x \in \mathbb R^3\), and any vectors \(\omega, \eta \in \so(3)\),
+$$
+\omega \times (\eta \times x) + \eta \times (x \times \omega) + x \times (\omega \times \eta) = 0.
+$$
+Applying anti-commutativity,
+$$
+\omega \times (\eta \times x) - \eta \times (\omega \times x) = (\omega \times \eta) \times x.
+$$
+Hence
+\begin{align}
+\left[ \operatorname{ad}_\omega \eta \right]_\times x &amp; =
+\omega_\times \eta_\times x - \eta_\times \omega_\times x \\<br>
+&amp;= \omega \times (\eta \times x) - \eta \times ( \omega \times x) \\<br>
+&amp;= (\omega \times \eta) \times x \\<br>
+&amp;= \left[ \omega \times \eta\right]_\times x.
+\end{align}
+Hence \(\left[ \operatorname{ad}_\omega \eta \right]_\times = \left[ \omega \times \eta \right]_\times
+= \left[ \omega_\times \eta \right]_\times\), meaning
+$$
+\operatorname{ad}_\omega = \omega_\times.
+$$</p>
+</article>
+
+        </main><footer id="footer">
+    
+</footer>
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

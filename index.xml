@@ -5,20 +5,24 @@
     <link>https://arwilliams.github.io/</link>
     <description>Recent content on Adam Williams</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en_US</language>
+    <lastBuildDate>Sun, 23 Aug 2020 19:16:06 -0700</lastBuildDate>
     
 	<atom:link href="https://arwilliams.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
+    
     <item>
-      <title>Adam Williams</title>
-      <link>https://arwilliams.github.io/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Derivation of exp and log for SO(3)</title>
+      <link>https://arwilliams.github.io/posts/so3-exp/</link>
+      <pubDate>Sun, 23 Aug 2020 19:16:06 -0700</pubDate>
       
-      <guid>https://arwilliams.github.io/</guid>
-      <description>About me I am currently a software engineer developing localization algorithms for autonomous vehicles, and I am generally interested in developing mathematically principled approaches to estimation problems. My primary areas of expertise center around estimation and optimization on manfolds, and particularly on Lie groups.
-I did my undergraduate and Master&amp;rsquo;s studies at CMU in the Department of Mathematical Sciences, and have been working in the software industry (primarily robotics) since.</description>
+      <guid>https://arwilliams.github.io/posts/so3-exp/</guid>
+      <description>\( \def\SO{\mathrm{SO}} \def\so{\mathfrak{so}} \)
+Overview This post details how to compute various quantities related to the Lie group \(\SO(3)\) and its Lie algebra \(\so(3)\), for practical engineering purposes. Recall that \(\SO(3)\) is the set of orthogonal, orientation-preserving linear transformations on \(\mathbb R^3\) and can be realized as a matrix group: $$ \SO(3) = \{ R \in \mathrm{GL}(3) \mid RR^\top = I, \; \det(R) &amp;gt; 0 \}. $$
+Characterizing the Lie Algebra \(\so(3)\) Skew-Symmetric Matrix Representation Differentiating a curve \(R\) in \(\SO(3)\) with \(R(0) = I\) yields $$ R&amp;rsquo;(0)^\top + R&amp;rsquo;(0) = 0, $$ meaning that the Lie algebra \(\so(3)\) can be realized as the vector space of \(3 \times 3\) skew-symmetric matrices, with Lie bracket given (as with all matrix groups) by the commutator: \([X, Y] = XY - YX\).</description>
     </item>
+    
     
   </channel>
 </rss>

@@ -5,21 +5,22 @@
     <link>https://arwilliams.github.io/posts/</link>
     <description>Recent content in Posts on Adam Williams</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jul 2020 19:13:50 -0700</lastBuildDate>
+    <language>en_US</language>
+    <lastBuildDate>Sun, 23 Aug 2020 19:16:06 -0700</lastBuildDate>
     
 	<atom:link href="https://arwilliams.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     
     <item>
-      <title>Hello World</title>
-      <link>https://arwilliams.github.io/posts/hello-world/</link>
-      <pubDate>Sun, 12 Jul 2020 19:13:50 -0700</pubDate>
+      <title>Derivation of exp and log for SO(3)</title>
+      <link>https://arwilliams.github.io/posts/so3-exp/</link>
+      <pubDate>Sun, 23 Aug 2020 19:16:06 -0700</pubDate>
       
-      <guid>https://arwilliams.github.io/posts/hello-world/</guid>
-      <description>This is the content of this post. Here is some displayed math: \begin{equation} X^\mathfrak{b} = \mathrm{Ad}_{\mathfrak{b} \leftarrow \mathfrak{a}} X^a. \end{equation}
-Here is some inline math: Transformations in a group \(G\) can be expressed as changes of frame \(\mathfrak b \leftarrow \mathfrak a\).</description>
+      <guid>https://arwilliams.github.io/posts/so3-exp/</guid>
+      <description>\( \def\SO{\mathrm{SO}} \def\so{\mathfrak{so}} \)
+Overview This post details how to compute various quantities related to the Lie group \(\SO(3)\) and its Lie algebra \(\so(3)\), for practical engineering purposes. Recall that \(\SO(3)\) is the set of orthogonal, orientation-preserving linear transformations on \(\mathbb R^3\) and can be realized as a matrix group: $$ \SO(3) = \{ R \in \mathrm{GL}(3) \mid RR^\top = I, \; \det(R) &amp;gt; 0 \}. $$
+Characterizing the Lie Algebra \(\so(3)\) Skew-Symmetric Matrix Representation Differentiating a curve \(R\) in \(\SO(3)\) with \(R(0) = I\) yields $$ R&amp;rsquo;(0)^\top + R&amp;rsquo;(0) = 0, $$ meaning that the Lie algebra \(\so(3)\) can be realized as the vector space of \(3 \times 3\) skew-symmetric matrices, with Lie bracket given (as with all matrix groups) by the commutator: \([X, Y] = XY - YX\).</description>
     </item>
     
     
