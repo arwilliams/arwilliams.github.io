@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" href="https://arwilliams.github.io/favicon.ico">
+    
+    <link rel="stylesheet" href="/css/style.min.css">
+
+    <title>Quick and Dirty Differential Calculus</title>
+</head>
+<body><header id="banner">
+    <h2><a href="https://arwilliams.github.io/">Adam Williams</a></h2>
+    <nav>
+        <ul>
+            
+            <li>
+                <a href="/posts/" title="">Posts</a>
+            </li>
+            
+        </ul>
+    </nav>
+</header>
+<main id="content">
+<article>
+    <header id="post-header">
+        <h1>Quick and Dirty Differential Calculus</h1><time>July 14, 2020</time></header><p>\(
+\def\R{\mathbb{R}}
+\def\d{\mathrm{d}}
+\def\v{\mathbf{v}}
+\def\w{\mathbf{w}}
+\def\x{\mathbf{x}}
+\def\y{\mathbf{y}}
+\def\z{\mathbf{z}}
+\def\a{\mathbf{a}}
+\def\b{\mathbf{b}}
+\def\btheta{\boldsymbol{\theta}}
+\def\diag{\operatorname{diag}}
+\)</p>
+<p>The convential mathematical definition of the derivative of a scalar-valued function of
+one variable \(f: \R \to \R\) is defined in terms of limits:
+\[
+f&rsquo;(x) = \lim_{\epsilon \to 0} \frac{f(x + \epsilon) - f(x)}{\epsilon}.
+\]</p>
+<p>This formulation is mathematically rigorous, but for practical purposes can be opaque and
+unwieldy. This post outlines a framework for doing differential calculus that, while less
+mathematically precise, is more intuitive and makes it easier to calculate the derivatives of
+complicated functions by hand.</p>
+<h2 id="infinitesimals-and-derivatives">Infinitesimals and derivatives</h2>
+<p>Our framework for practical differential calculus requires the notion of <strong>infinitesimals</strong>.
+Intuitively, infinitesimals are numbers that are &ldquo;infinitely small&rdquo; compared to the usual
+real numbers, but otherwise have the same properties. Specifically, <strong>an
+infinitesimal is a non-zero &ldquo;real number&rdquo; \(\epsilon\) such that \(\epsilon^2 = 0\)</strong>.
+Clearly such numbers cannot exist in the standard formulation of calculus, but this notion can be made
+rigorous, and it is the foundation of our practical view of calculus.</p>
+<p>The fundamental idea behind our formulation of differential calculus is that <strong>the derivative of
+a function measures how much the function changes under an infinitesimal perturbation of its
+input.</strong> Specifically, given a function \(f : \R \to \R\) as above, its derivative is defined
+by the relation
+\[
+f(x + \epsilon) \approx f(x) + f&rsquo;(x) \epsilon
+\]
+where \(\approx\) denotes <em>equality up to an infinitesimal difference</em>, i.e. equality assuming
+that all powers of \(\epsilon\) higher than \(\epsilon^2\) vanish.
+Hence the derivative can be viewed as a <em>sensitivity measurement:
+&ldquo;What small change in the output is induced by a small change in the input?&quot;</em></p>
+<h3 id="leibniz-notation">Leibniz notation</h3>
+<p>Leibniz notation is an alternative notation for derivatives that can be more intuitively expressive
+at the cost of some preciseness. Denote the &ldquo;dependent variable&rdquo; of the function by \(y\), so that
+our function is the relation \(y = f(x)\). Then make the following notational substitutions:
+\begin{align}
+\d x &amp;:= \epsilon \\<br>
+\frac{\d y}{\d x} &amp;:= f&rsquo;(x) \\<br>
+\d y &amp;:= f&rsquo;(x) \d x
+\end{align}
+(note that the expression \(\frac{\d y}{\d x}\) is an atomic piece of notation, <em>not</em> a fraction).
+Then the equation defining the derivative is
+\begin{equation}
+\d y = \frac{\d y}{\d x} \d x.
+\end{equation}
+An immediate advantage of Leibniz notation is that it makes the &ldquo;units&rdquo; in the equation clear:
+\(\d x\) has the same units as \(x\); the derivative has units &ldquo;\(y\) units per
+\(x\) units&rdquo;, and the multiplication of \(\frac{\d y}{\d x}\) by \(\d x\) cancels out
+the \(x\) units, leaving us with a quantity that can be combined directly with \(y\). A
+disadvantage of this notation is that the relationships between the variables,
+along with the point of evaluation of the derivative, are implicit.</p>
+<h3 id="examples">Examples</h3>
+<h4 id="the-power-rule">The power rule</h4>
+<p>For a very simple example, consider \(f(x) = x^2\). As we all know, \(f&rsquo;(x) = 2x\), and this
+is precisely because \((x + \epsilon)^2 \approx x^2 + (2x)\epsilon\). We can write the calculation
+out:
+\begin{align}
+(x + \epsilon)^2 &amp;= x^2 + (2x)\epsilon + \epsilon^2 \\<br>
+&amp;\approx x^2 + (2x)\epsilon.
+\end{align}
+Interpreting \(f&rsquo;(x)\) as a sensitivity measurement, this
+statement about the derivative says that
+<em>if we perturb \(x\) by a small amount, then \(x^2\) gets perturbed by approximately twice that amount</em>.</p>
+<p>More generally, we can derive the <strong>power rule</strong> by appling the
+<a href="https://en.wikipedia.org/wiki/Binomial_theorem">binomial theorem</a>:
+\begin{align}
+(x + \epsilon)^n &amp;= \sum_{k=0}^n \begin{pmatrix} n \\ k \end{pmatrix} x^k \epsilon^{n-k} \\<br>
+&amp;\approx x^n + n x^{n-1} \epsilon,
+\end{align}
+since all but the first two terms in the sum vanish due to being quadratic or higher in \(\epsilon\). Hence
+in general
+\[
+\frac{\d}{\d x} x^n = nx^{n-1}.
+\]
+Wikipedia <a href="https://en.wikipedia.org/wiki/Binomial_theorem#Geometric_explanation">describes</a>
+a geometric interpretation of this formula:</p>
+<blockquote>
+<p>&ldquo;The infinitesimal rate of change in volume of an n-cube as side length varies is the area of n of its (n − 1)-dimensional faces&rdquo;.</p>
+</blockquote>
+<h4 id="linearity-of-the-derivative">Linearity of the derivative</h4>
+<p>For any two functions \(f\) and \(g\), the derivative of their sum is the sum of their derivatives:
+\begin{align}
+(f + g)(x + \epsilon) &amp;= f(x + \epsilon) + g(x + \epsilon) \\<br>
+&amp;\approx f(x) + f&rsquo;(x)\epsilon + g(x) + g&rsquo;(x)\epsilon \\<br>
+&amp;= (f + g)(x) + (f&rsquo; + g&rsquo;)(x) \epsilon.
+\end{align}
+Hence \((f + g)&rsquo; = f&rsquo; + g&rsquo;\).</p>
+<p>The derivative also scales with the function: If \(c\) is a scalar, then
+\begin{align}
+(cf)(x + \epsilon) &amp;= cf(x + \epsilon) \\<br>
+&amp;\approx cf(x) + cf&rsquo;(x)\epsilon.
+\end{align}
+Hence \((cf)&rsquo; = cf&rsquo;\).</p>
+<h4 id="product-rule">Product rule</h4>
+<p>We can easily derive the product rule as well; given functions \(f\) and \(g\):
+\begin{align}
+(fg)(x + \epsilon) &amp;= f(x + \epsilon)g(x + \epsilon) \\<br>
+&amp;\approx \left( f(x) + f&rsquo;(x)\epsilon \right) \left( g(x) + g&rsquo;(x)\epsilon \right) \\<br>
+&amp;\approx f(x)g(x) + \left(f&rsquo;(x)g(x) + f(x)g&rsquo;(x)\right)\epsilon.
+\end{align}
+Hence \((fg)&rsquo; = f&rsquo;g + fg&rsquo;\).</p>
+<h4 id="chain-rule">Chain rule</h4>
+<p>The chain rule: Let \((f \circ g)(x) = f(g(x)\); then
+\begin{align}
+(f \circ g)(x + \epsilon) &amp;= f(g(x + \epsilon)) \\<br>
+&amp;\approx f(g(x) + g&rsquo;(x)\epsilon) \\<br>
+&amp;\approx f(g(x)) + f&rsquo;(g(x))g&rsquo;(x)\epsilon.
+\end{align}
+Hence \((f \circ g)&rsquo; = (f&rsquo; \circ g) g&rsquo;\).</p>
+<p>The chain rule is much more intuitive when written in Leibniz notation: If
+\(y = f(x)\) and \(z = g(y)\), then
+\begin{equation}
+\frac{\d z}{\d x} = \frac{\d z}{\d y}\frac{\d y}{\d x}.
+\end{equation}
+The \(\d y\) quantity &ldquo;cancels&rdquo; to yield \(\frac{\d z}{\d x}\).</p>
+<h2 id="vector-differential-calculus">Vector differential calculus</h2>
+<p>The above discussion generalizes fairly straightforwardly to derivatives of
+vector functions \(f: \R^n \to \R^m\). The key &ldquo;difference&rdquo; (noting that
+the 1D situation is merely a special case) is that each input point now has
+\(n\) directions in which it can be perturbed infinitesimally. Specifically,
+for any vector quantity \(\v \in \R^n\), the vector \(\epsilon \v\), where
+\(\epsilon\) is an infinitesimal, can be used it to take an
+&ldquo;infinitesimal step&rdquo; away from a given point.
+Explicitly, we can consider the vector space of perturbations
+around a given point \(\x \in \R^n\); this space
+called the <strong>tangent space</strong> at \(\x\). Note that the tangent
+space is the same for each point in \(\R^n\); the same is not
+true in more general contexts.</p>
+<p>The derivative then describes how \(f\) maps perturbations of \(\x\) to
+perturbations of \(f(\x)\):
+\begin{equation}
+df_{\x}: \R^n \to \R^m \\<br>
+\end{equation}
+defined by
+\begin{equation}
+f(\x + \epsilon \v) \approx f(\x) + \epsilon \left[ df_{\x}\v \right].
+\end{equation}</p>
+<p>A key fact about the derivative \(df_{\x}\) at a point \(\x\) is that it is
+a <strong>linear transformation</strong>:
+\begin{equation}
+df_{\x}(c \v + \w) = c \left[ df_{\x} \v \right] + df_{\x}\w.
+\end{equation}
+This follows easily from observing that the derivative of the identity transformation
+is the identity, and then doing the same linearity calculation from the previous section. Note that,
+in particular, this means that the derivative can always be represented as an \(m \times n\) matrix,
+called the <strong>Jacobian matrix</strong> of the function \(f\). Note that for the vector valued functions that we
+differentiate below, the derivative is naturally expressed as left-multiplication by a matrix, so we
+don&rsquo;t distinguish between the derivative and the Jacobian. This will not be the case for some
+examples later.</p>
+<h3 id="examples-1">Examples</h3>
+<h4 id="derivative-of-the-squared-norm-of-a-vector">Derivative of the squared norm of a vector</h4>
+<p>Let \(f(\x) = \x^\top \x\). Then
+\begin{align}
+f(\x + \epsilon \v) &amp;= (\x + \epsilon \v)^\top (\x + \epsilon \v) \\<br>
+&amp;\approx \x^\top \x + \epsilon\left[2 \x^\top \v \right]. \\<br>
+\end{align}
+Hence \(\frac{\d}{\d \x} \x^\top \x = 2\x^\top\). Note that this is a generalization of
+the identity \(\frac{\d}{\d x} x^2 = 2x\).</p>
+<h4 id="derivative-of-the-dot-product">Derivative of the dot product</h4>
+<p>Writing \(\x \cdot  \y = \x^\top \y\) for notational clarity and making using of the <em>adjoint</em> property
+\begin{equation}
+\x \cdot (A\y) = (A^\top \x) \cdot \y,
+\end{equation}
+we have
+\begin{align}
+f(\x + \epsilon \v) \cdot  g(\x + \epsilon \v) &amp;\approx
+\left( f(\x) + \epsilon \left[ df_{\x} \v \right] \right)
+\cdot \left(  g(\x) + \epsilon \left[ dg_{\x} \v \right] \right) \\<br>
+&amp;\approx f(\x) \cdot g(\x) +
+\epsilon \left[ f(\x) \cdot \left(dg_{\x} \v\right)
++ \left( df_{\x}\v \right) \cdot g(\x) \right] \\<br>
+&amp;= f(\x) \cdot g(\x) + \epsilon\left[
+f(\x) \cdot \left( dg_{\x}\v \right) +
+\v \cdot \left( (df_{\x})^\top g(\x) \right)
+\right] \\<br>
+&amp;= f(\x) \cdot g(\x) + \epsilon \left[
+f(\x)^\top (dg_{\x}) + g(\x)^\top (df_{\x})
+\right] \v.
+\end{align}
+Hence the product rule:
+\begin{equation}
+d(f^\top g) = f^\top (dg) + g^\top (df).
+\end{equation}
+You can guess this formula without going through the step-by-step calculation; it&rsquo;s the
+natural generalization of the 1D product rule \((fg)&rsquo; = f&rsquo;g + fg&rsquo;\), with the transpositions
+required to make the dimensions correct.</p>
+<h4 id="derivative-of-the-cross-product">Derivative of the cross product</h4>
+<p>Left as an exercise.</p>
+<h4 id="chain-rule-1">Chain rule</h4>
+<p>Carries over trivially from the 1D case:
+\begin{align}
+d(f \circ g) &amp;= df_g \circ dg.
+\end{align}</p>
+<p>Or, in Leibniz notation:
+\begin{equation}
+\frac{\d \z}{\d \x} = \frac{\d \z}{\d \y}\frac{\d \y}{\d \x}.
+\end{equation}</p>
+<h2 id="matrix-differential-calculus">Matrix Differential Calculus</h2>
+<p>Finally, let&rsquo;s generalize once more and consider matrix-valued functions of a
+matrix variable:
+\begin{equation}
+f: \R^{m \times n} \to \R^{p \times q}.
+\end{equation}
+The definitions and calculation methods generalize straightforwardly: \(\R^{m \times n}\) is
+an \((m \times n)\)-dimensional vector space, and for an infinitesimal \(\epsilon\), the
+space of matrices \(\epsilon X\) forms a <em>tangent space</em> of vectors by which we can perturb
+a given matrix \(A\). But there is one added subtlety that we&rsquo;ll encounter in the first example.</p>
+<h3 id="examples-2">Examples</h3>
+<h4 id="derivative-of-the-square-of-a-matrix">Derivative of the square of a matrix.</h4>
+<p>Let \(A \in \R^{n \times n}\) be a square matrix; we will compute the derivative
+of \(A \mapsto A^2\).
+\begin{align}
+(A + \epsilon X)^2 &amp;= (A + \epsilon X) (A + \epsilon X) \\<br>
+&amp;\approx A^2 + \epsilon \left[ AX + XA \right].
+\end{align}
+Hence the derivative of the matrix square is the mapping
+\begin{equation}
+df_A(X) = AX + XA.
+\end{equation}
+Note that, this time, <strong>we have not expressed the derivative as a (Jacobian)
+matrix</strong>; such a matrix would have dimensions \(n^2 \times n^2\)
+and would be quite unwieldy to write down.</p>
+<h4 id="product-rule-1">Product rule</h4>
+<p>More generally, if we have two functions \(f\) and \(g\), then we have the product rule
+\begin{equation}
+d(fg)_A(X) = f(A) dg_A(X) + df_A(X) g(A).
+\end{equation}
+Or, leaving the arguments implicit,
+\begin{equation}
+d(fg) = f (dg) + (df) g,
+\end{equation}
+which looks like the product rule we expect.</p>
+</article>
+
+        </main><footer id="footer">
+    
+</footer>
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

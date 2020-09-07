@@ -23,5 +23,18 @@ Characterizing the Lie Algebra \(\so(3)\) Skew-Symmetric Matrix Representation D
     </item>
     
     
+    
+    <item>
+      <title>Quick and Dirty Differential Calculus</title>
+      <link>https://arwilliams.github.io/posts/practical-differential-calculus/</link>
+      <pubDate>Tue, 14 Jul 2020 19:11:03 -0700</pubDate>
+      
+      <guid>https://arwilliams.github.io/posts/practical-differential-calculus/</guid>
+      <description>\( \def\R{\mathbb{R}} \def\d{\mathrm{d}} \def\v{\mathbf{v}} \def\w{\mathbf{w}} \def\x{\mathbf{x}} \def\y{\mathbf{y}} \def\z{\mathbf{z}} \def\a{\mathbf{a}} \def\b{\mathbf{b}} \def\btheta{\boldsymbol{\theta}} \def\diag{\operatorname{diag}} \)
+The convential mathematical definition of the derivative of a scalar-valued function of one variable \(f: \R \to \R\) is defined in terms of limits: \[ f&amp;rsquo;(x) = \lim_{\epsilon \to 0} \frac{f(x + \epsilon) - f(x)}{\epsilon}. \]
+This formulation is mathematically rigorous, but for practical purposes can be opaque and unwieldy. This post outlines a framework for doing differential calculus that, while less mathematically precise, is more intuitive and makes it easier to calculate the derivatives of complicated functions by hand.</description>
+    </item>
+    
+    
   </channel>
 </rss>
