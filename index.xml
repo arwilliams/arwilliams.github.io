@@ -6,35 +6,8 @@
     <description>Recent content on Adam Williams</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en_US</language>
-    <lastBuildDate>Sun, 23 Aug 2020 19:16:06 -0700</lastBuildDate>
     
 	<atom:link href="https://arwilliams.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    
-    <item>
-      <title>Derivation of exp and log for SO(3)</title>
-      <link>https://arwilliams.github.io/posts/so3-exp/</link>
-      <pubDate>Sun, 23 Aug 2020 19:16:06 -0700</pubDate>
-      
-      <guid>https://arwilliams.github.io/posts/so3-exp/</guid>
-      <description>\( \def\SO{\mathrm{SO}} \def\so{\mathfrak{so}} \)
-Overview This post details how to compute various quantities related to the Lie group \(\SO(3)\) and its Lie algebra \(\so(3)\), for practical engineering purposes. Recall that \(\SO(3)\) is the set of orthogonal, orientation-preserving linear transformations on \(\mathbb R^3\) and can be realized as a matrix group: $$ \SO(3) = \{ R \in \mathrm{GL}(3) \mid RR^\top = I, \; \det(R) &amp;gt; 0 \}. $$
-Characterizing the Lie Algebra \(\so(3)\) Skew-Symmetric Matrix Representation Differentiating a curve \(R\) in \(\SO(3)\) with \(R(0) = I\) yields $$ R&amp;rsquo;(0)^\top + R&amp;rsquo;(0) = 0, $$ meaning that the Lie algebra \(\so(3)\) can be realized as the vector space of \(3 \times 3\) skew-symmetric matrices, with Lie bracket given (as with all matrix groups) by the commutator: \([X, Y] = XY - YX\).</description>
-    </item>
-    
-    
-    
-    <item>
-      <title>Practical Differential Calculus</title>
-      <link>https://arwilliams.github.io/posts/practical-differential-calculus/</link>
-      <pubDate>Tue, 14 Jul 2020 19:11:03 -0700</pubDate>
-      
-      <guid>https://arwilliams.github.io/posts/practical-differential-calculus/</guid>
-      <description>\( \def\R{\mathbb{R}} \def\d{\mathrm{d}} \def\v{\mathbf{v}} \def\w{\mathbf{w}} \def\x{\mathbf{x}} \def\y{\mathbf{y}} \def\z{\mathbf{z}} \def\a{\mathbf{a}} \def\b{\mathbf{b}} \def\btheta{\boldsymbol{\theta}} \def\diag{\operatorname{diag}} \)
-The convential mathematical definition of the derivative of a scalar-valued function of one variable \(f: \R \to \R\) is defined in terms of limits: \[ f&amp;rsquo;(x) = \lim_{\epsilon \to 0} \frac{f(x + \epsilon) - f(x)}{\epsilon}. \]
-This formulation is mathematically rigorous, but for practical purposes can be opaque and unwieldy. This post outlines a framework for doing differential calculus that, while less mathematically precise, is more intuitive and makes it easier to calculate the derivatives of complicated functions by hand.</description>
-    </item>
     
     
   </channel>
